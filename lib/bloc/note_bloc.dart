@@ -6,6 +6,8 @@ import 'package:note_application/models/note.dart';
 
 class NoteBloc implements BlocBase{
 
+	final _dao = NoteDAO();
+
 	final _notesController = StreamController<List<Note>>.broadcast();
 
 	StreamSink<List<Note>> get _inNotes => _notesController.sink;
@@ -15,7 +17,7 @@ class NoteBloc implements BlocBase{
 
 	final _addNoteController = StreamController<Note>.broadcast();
 
-	StreamSink<Note> gen inAddNote => _addNoteController.sink();
+	StreamSink<Note> get inAddNote => _addNoteController.sink;
 
 
 	NoteBloc(){
@@ -31,7 +33,17 @@ class NoteBloc implements BlocBase{
 	}
 
 	void getNotes() async {
-		List<Note> notes = await DatabaseProvider
+		
+		List<Note> notes = await _dao.get();
+
+		_inNotes.add(notes);
+	}
+
+	void _handleAddNote(Note note)async{
+		
+		await _dao.post(note);
+
+		getNotes();
 	}
 
 }
