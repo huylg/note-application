@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_application/bloc/bloc_provider.dart';
 import 'package:note_application/bloc/note_bloc.dart';
-import 'note_page.dart';
+import 'package:note_application/ui/note_page.dart';
 
 void main() => runApp(MyApp());
 

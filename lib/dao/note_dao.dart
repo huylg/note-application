@@ -9,7 +9,7 @@ class NoteDAO{
 
 		var res = await db.query('note');
 
-		List<Note> notes = res.isEmpty ? [] : res.map((json) => Note.fromJson(json));
+		List<Note> notes = List.generate(res.length, (i) => Note.fromJson(res[i]));
 
 		return notes;
 	}
@@ -34,7 +34,7 @@ class NoteDAO{
 
 	Future<int> put(Note note) async {
 		final db = await DatabaseProvider.instance.database;
-		var res = await db.update('note',note.toJson());
+		var res = await db.update('note',note.toJson(), where: 'id = ?', whereArgs: [note.id]);
 
 		return res;
 	}

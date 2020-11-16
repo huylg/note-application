@@ -31,8 +31,8 @@ class DatabaseProvider {
 		return await openDatabase(path, version: 1, onCreate: (Database database, int version)async{
 			await database.execute('''
 					CREATE TABLE note (
-							id INTEGER PRIMARY KEY AUTO_INCREMENT,
-							content TEXT NOT NULL,
+							id INTEGER PRIMARY KEY AUTOINCREMENT,
+							content TEXT NOT NULL
 					)
 					''');
 		});
